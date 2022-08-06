@@ -9,8 +9,8 @@ class Profile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = models.CharField(max_length=12)
     address = models.CharField(max_length=120)
-    city = models.ForeignKey(City, on_delete=models.PROTECT)
-    company_worked = models.ForeignKey('companies.Company', null=True, on_delete=models.SET_NULL)
+    city = models.ForeignKey(City, null=True, on_delete=models.PROTECT)
+    company_id = models.ForeignKey('companies.Company', null=True, on_delete=models.SET_NULL)
 
 @receiver
 def create_user_profile(sender, instance, created, **kwargs):

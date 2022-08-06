@@ -12,7 +12,6 @@ class Company(BaseModel):
     city = models.ForeignKey(City, on_delete=models.PROTECT)
     admin = models.OneToOneField('users.Profile', null=True, on_delete=models.SET_NULL)
     
-    
 class AccessPoint(BaseModel):
     name = models.CharField(max_length=40)
     address = models.CharField(max_length=120)
