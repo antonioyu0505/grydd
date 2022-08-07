@@ -26,6 +26,9 @@ class AccessPointService:
     
     @staticmethod
     def _validate_permission(user_id: int, access_point: AccessPoint, current_time: time = datetime.now().time()) -> bool:
+        if not access_point.active:
+            raise UnauthorizedAccess
+        
         # QuerySet where start time is less than end time
         time_slots_before_midnight: QuerySet = TimeSlot.objects.filter(
             Q(start__lte=F('end')), Q(start__lte=current_time), 
@@ -43,6 +46,4 @@ class AccessPointService:
         )
         time_slots = time_slots_before_midnight | time_slots_after_midnight
         
-        if not access_point.active:
-            raise UnauthorizedAccess
         return len(time_slots) > 0
