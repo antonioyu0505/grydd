@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import Company, AccessPoint, TimeSlot
 
 class CompanySerializer(serializers.ModelSerializer):

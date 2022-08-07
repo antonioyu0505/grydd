@@ -1,16 +1,18 @@
 from datetime import datetime, time
 from django.db.models import Q, F, QuerySet
 from companies.serializers import AccessPointSerializer
-from users.models import Profile
 from exceptions.models import UnauthorizedAccess
 from .models import AccessPoint, TimeSlot
-   
+from rest_framework.exceptions import ValidationError
+
 class AccessPointService:
     
     def __init__(self, company_id):
         self.company_id = company_id
     
     def check_access(self, user_id: int, access_point_id: int) -> AccessPointSerializer:
+        if not user_id or not access_point_id:
+            raise ValidationError({"detail": "One or more parameters are missing."})
         self._belongs_to_company(access_point_id=access_point_id, company_id=self.company_id)
         access_point: AccessPoint = AccessPoint.objects.get(id=access_point_id)
         access = self._validate_permission(user_id=user_id, access_point=access_point)
