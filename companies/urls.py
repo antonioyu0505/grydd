@@ -7,4 +7,5 @@ router.register('companies', CompanyViewSet, basename='company')
 router.register('access-points', AccessPointViewSet, basename='access-point')
 router.register('timeslot', TimeSlotViewSet, basename='timeslot')
 
-urlpatterns = router.urls
+urlpatterns = []
+urlpatterns += router.urls

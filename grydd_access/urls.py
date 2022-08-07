@@ -15,9 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+
+from geolocations.urls import router as geolocation_router
+from companies.urls import router as company_router
+from users.urls import router as user_router
+
+router = DefaultRouter()
+router.registry.extend(geolocation_router.registry)
+router.registry.extend(company_router.registry)
+router.registry.extend(user_router.registry)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include('companies.urls')),
-    path('api/v1/', include('users.urls')),
 ]
+
+urlpatterns += router.urls
