@@ -5,4 +5,3 @@ from users.models import Profile
 admin.site.register(Company)
 admin.site.register(AccessPoint)
 admin.site.register(TimeSlot)
-admin.site.register(Profile)
